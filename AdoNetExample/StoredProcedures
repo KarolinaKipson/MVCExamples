@@ -1,0 +1,59 @@
+USE [MoviesAdoNetDB]
+GO
+/****** Object:  StoredProcedure [dbo].[CreateMovie]    Script Date: 30-Mar-19 11:13:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER procedure [dbo].[CreateMovie]
+@Title nvarchar(50),
+@Director nvarchar(50),
+@ReleaseDate datetime2(7)
+
+As
+insert into Movies ( Title, Director, ReleaseDate)
+values (@Title, @Director, @ReleaseDate)
+
+Select cast(SCOPE_IDENTITY() as int)
+
+
+USE [MoviesAdoNetDB]
+GO
+/****** Object:  StoredProcedure [dbo].[EditMovie]    Script Date: 30-Mar-19 11:17:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[EditMovie]
+@MovieId int,
+@Title nvarchar(50),
+@Director nvarchar(50),
+@ReleaseDate datetime2(7)
+As
+update Movies
+set 
+Title = @Title,
+Director = @Director,
+ReleaseDate = @ReleaseDate
+
+Where MovieId = @MovieId;
+
+select @MovieId;
+
+
+USE [MoviesAdoNetDB]
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteMovie]    Script Date: 30-Mar-19 11:14:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[DeleteMovie]  
+(  
+   @MovieId int  
+)  
+as   
+begin  
+   Delete from Movies where MovieId=@MovieId  
+End  
